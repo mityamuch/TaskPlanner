@@ -1,0 +1,32 @@
+{% extends  'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block main %}
+<div class="card">
+<div class="card-body">
+<h4 class="card-title">Log in to your account</h4>
+
+<form method="post">
+{% csrf_token %}
+<input type="hidden" name="next" value="{{ next }}">
+
+{{ form|crispy }}
+
+<button type="submit" class="btn btn-primary btn-block">Log in</button>
+
+<button type="button" class="btn btn-primary btn-block">
+    <a href="{% url 'signup' %}">Регистрация
+        <style>
+           a:link {
+            color: #00d000; /* Цвет ссылок */
+           }
+           a:visited {
+            color: #000000; /* Цвет посещенных ссылок */
+           }
+         </style>
+    </a>
+</button>
+</form>
+</div>
+</div>
+{% endblock %}

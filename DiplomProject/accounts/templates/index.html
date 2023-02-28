@@ -1,0 +1,65 @@
+{% extends  'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block main %}
+      {% if user.is_authenticated %}
+        <p>Hi {{ user.username }}!</p>
+      {% else %}
+        <p>You are not logged in.</p>
+        <a href="{% url 'login' %}">Log In</a>
+      {% endif %}
+
+<button type="button" class="btn btn-primary btn-block">
+    <a href="{% url 'redirect_to_tasks' %}">Задачи
+        <style>
+           a:link {
+            color: #00d000;
+           }
+           a:visited {
+            color: #000000;
+           }
+         </style>
+    </a>
+</button>
+
+<button type="button" class="btn btn-primary btn-block">
+    <a href="{% url 'password_change' %}">Сменить пароль
+        <style>
+           a:link {
+            color: #00d000;
+           }
+           a:visited {
+            color: #000000;
+           }
+         </style>
+    </a>
+</button>
+
+<button type="button" class="btn btn-primary btn-block">
+    <a href="{% url 'password_reset' %}">Сбросить пароль
+        <style>
+           a:link {
+            color: #00d000;
+           }
+           a:visited {
+            color: #000000;
+           }
+         </style>
+    </a>
+</button>
+
+<button type="button" class="btn btn-primary btn-block">
+    <a href="{% url 'logout' %}">Выйти
+        <style>
+           a:link {
+            color: #00d000;
+           }
+           a:visited {
+            color: #000000;
+           }
+         </style>
+    </a>
+</button>
+
+{% endblock %}

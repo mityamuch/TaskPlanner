@@ -1,0 +1,22 @@
+{% extends 'base1.html' %}
+
+{% block title %}
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}
+
+{% block content %}
+<div class="col-md-9">
+    {% for task in tasks %}
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">{{ task.status }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ task.deadline | date:"Y-m-d H:i:s" }}</h6>
+            <p class="card-text">{{ task.task_text | safe | linebreaks |truncatewords:50 }}</p>
+            <a href="#" class="card-link">Узнать больше</a>
+          </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
