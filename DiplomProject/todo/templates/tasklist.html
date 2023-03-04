@@ -1,22 +1,81 @@
 {% extends 'base1.html' %}
 
 {% block title %}
+Задачи
 {% endblock %}
 
 {% block sidebar %}
 {% endblock %}
 
 {% block content %}
-<div class="col-md-9">
-    {% for task in tasks %}
-        <div class="card" style="width: 18rem;">
-          <div class="card-body">
-            <h5 class="card-title">{{ task.status }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{ task.deadline | date:"Y-m-d H:i:s" }}</h6>
-            <p class="card-text">{{ task.task_text | safe | linebreaks |truncatewords:50 }}</p>
-            <a href="#" class="card-link">Узнать больше</a>
+<!--<div class="col-md-9">-->
+<!--    {% for task in tasks %}-->
+<!--        <div class="card" style="width: 18rem;">-->
+<!--          <div class="card-body">-->
+<!--            <h5 class="card-title">{{ task.status }}</h5>-->
+<!--            <h6 class="card-subtitle mb-2 text-muted">{{ task.deadline | date:"Y-m-d H:i:s" }}</h6>-->
+<!--            <p class="card-text">{{ task.task_text | safe | linebreaks |truncatewords:50 }}</p>-->
+<!--            <a href="#" class="card-link">Узнать больше</a>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--    {% endfor %}-->
+<!--</div>-->
+
+<section class="vh-100" style="background-color: #eee;">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card rounded-3">
+            <h4 class="text-center my-3 pb-3">Задачи</h4>
+
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                    <th scope="col">№</th>
+                    <th scope="col">Задача</th>
+                    <th scope="col">Статус</th>
+                    <th scope="col">Дедлайн</th>
+                    <th scope="col">Действия</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for task in tasks %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ task.task_text | safe | linebreaks |truncatewords:50 }}</td>
+                    <td>{{ task.status }}</td>
+                    <td>{{ task.deadline | date:"Y-m-d" }}</td>
+                    <td>
+                    <button type="submit" class="btn btn-outline-info">
+                        <a href="{% url 'todo:learn-more' task_id=task.id %}" class="card-link">Узнать больше</a>
+                    </button>
+                    <button type="submit" class="btn btn-outline-primary ms-1" >
+                         <a href="{% url 'todo:accept' task_id=task.id  %}" class="card-link">Завершить</a>
+                    </button>
+                  </td>
+                </tr>
+              {% endfor %}
+
+
+              </tbody>
+            </table>
+
           </div>
         </div>
-    {% endfor %}
-</div>
+      </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
 {% endblock %}
+
+

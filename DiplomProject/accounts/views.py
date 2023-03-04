@@ -21,4 +21,7 @@ def redirect_to_tasks(request):
 def home(request):
     return render(request, "index.html")
 
+
+def redirect_to_login(request):
+    return redirect('login', permanent=False)
 # Create your views here.

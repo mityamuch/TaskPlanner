@@ -2,6 +2,7 @@ from django.contrib.auth import views
 from django.urls import path
 from .views import *
 
+
 urlpatterns = [
     path('login/', views.LoginView.as_view(), name='login'),
     path('logout/', views.LogoutView.as_view(), name='logout'),
@@ -14,4 +15,5 @@ urlpatterns = [
     path('signup/', SignUpView.as_view(), name='signup'),
     path('home/', home, name='home'),
     path('redirect_to_tasks/', redirect_to_tasks, name='redirect_to_tasks'),
+    path('redirect_to_login/', redirect_to_login, name='redirect_to_login'),
 ]

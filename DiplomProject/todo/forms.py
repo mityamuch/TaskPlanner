@@ -8,11 +8,12 @@ class TaskForm(forms.ModelForm):
         fields = ['task_text', 'deadline', 'assigned_to_employee', 'assigned_to_team', 'priority', 'estimated_duration',
                   'notes']
         widgets = {
+            'task_text': forms.Textarea(attrs={'class': 'form-control'}),
             'deadline': forms.DateInput(attrs={'type': 'date'}),
             'assigned_to_employee': forms.Select(attrs={'class': 'form-control'}),
             'assigned_to_team': forms.Select(attrs={'class': 'form-control'}),
+            'estimated_duration': forms.NumberInput(attrs={'class': 'form-control'}),
             'notes': forms.Textarea(attrs={'class': 'form-control'}),
-            'task_text': forms.TextInput(attrs={'class': 'form-control'}),
         }
         labels = {
             'deadline': 'Дедлайн',
@@ -20,7 +21,7 @@ class TaskForm(forms.ModelForm):
             'assigned_to_team': 'Выдать команде',
             'priority': 'Приоритет',
             'notes': 'Заметки',
-            'estimated_duration': 'Предполагаемое время выполнения',
+            'estimated_duration': 'Предполагаемое время выполнения в сутках',
             'task_text': 'Задание',
         }
         help_texts = {

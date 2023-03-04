@@ -1,0 +1,46 @@
+{% extends 'base1.html' %}
+
+{% block title %}
+{% endblock %}
+
+
+{% block content %}
+  <div class="container mt-5">
+    <h1 class="mb-4">{{ task.task_text }}</h1>
+    <div class="row">
+      <div class="col-md-8">
+        <p>{{ task.description }}</p>
+        <p><strong>Приоритет:</strong> {{ task.priority }}</p>
+        <p><strong>Статус:</strong> {{ task.status }}</p>
+        <p><strong>Дедлайн:</strong> {{ task.deadline }}</p>
+        <p><strong>Предполагаемое время выполнения:</strong> {{ task.estimated_duration }}</p>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Выдана:</h5>
+            {% if task.assigned_to_employee %}
+              <p>{{ task.assigned_to_employee.user }}</p>
+            {% elif task.assigned_to_team %}
+              <p>{{ task.assigned_to_team.name }}</p>
+            {% else %}
+              <p>Никому не выдана</p>
+            {% endif %}
+            <button type="button" class="btn btn-primary btn-block">
+              <a href="{% url 'todo:accept' task_id=task.id %}" class="card-link">Завершить
+              <style>
+                   a:link {
+                    color: #00d000;
+                   }
+                   a:visited {
+                    color: #000000;
+                   }
+             </style>
+              </a>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
