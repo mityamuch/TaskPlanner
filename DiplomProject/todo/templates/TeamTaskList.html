@@ -2,7 +2,7 @@
 
 {% block content %}
   <div class="container my-5">
-    <h2>Задачи Команд</h2>
+    <h2 class="text-center my-3 pb-3">Задачи Команд</h2>
     <table class="table">
       <thead>
         <tr>
@@ -32,7 +32,7 @@
         </tr>
         {% empty %}
         <tr>
-          <td colspan="5">No tasks found.</td>
+          <td colspan="5">Нет задач для команд</td>
         </tr>
         {% endfor %}
       </tbody>

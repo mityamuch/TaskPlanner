@@ -5,7 +5,7 @@
   <div class="card-body">
     <h4 class="card-title">Создать новую задачу</h4>
 
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <input type="hidden" name="next" value="{{ next }}">
       {{ form.as_p }}

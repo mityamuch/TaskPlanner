@@ -11,4 +11,5 @@ urlpatterns = [
     path('team-tasks/', team_tasks, name='team-tasks'),
     path('completed_tasks/', completed_tasks, name='completed_tasks'),
     path('completed_by_team/', completed_by_team, name='completed_by_team'),
+    path('learn-more/<int:task_id>/download/', download_file, name='download-file'),
 ]

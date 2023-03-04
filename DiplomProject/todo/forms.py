@@ -6,7 +6,7 @@ class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = ['task_text', 'deadline', 'assigned_to_employee', 'assigned_to_team', 'priority', 'estimated_duration',
-                  'notes']
+                  'notes', 'file']
         widgets = {
             'task_text': forms.Textarea(attrs={'class': 'form-control'}),
             'deadline': forms.DateInput(attrs={'type': 'date'}),
@@ -14,6 +14,7 @@ class TaskForm(forms.ModelForm):
             'assigned_to_team': forms.Select(attrs={'class': 'form-control'}),
             'estimated_duration': forms.NumberInput(attrs={'class': 'form-control'}),
             'notes': forms.Textarea(attrs={'class': 'form-control'}),
+            'file': forms.FileInput(attrs={'class': 'form-control'}),
         }
         labels = {
             'deadline': 'Дедлайн',

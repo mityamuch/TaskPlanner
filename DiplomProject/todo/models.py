@@ -72,6 +72,7 @@ class Task(models.Model):
     estimated_duration = models.DurationField(null=True, default=datetime.timedelta(days=1), blank=True,
                                               verbose_name='Предполагаемая длительность')
     notes = models.TextField(blank=True, verbose_name='Заметки')
+    file = models.FileField(upload_to='task_files/', blank=True, null=True)
 
     def __str__(self):
         return self.task_text

@@ -4,9 +4,9 @@
 
 {% block main %}
       {% if user.is_authenticated %}
-        <p>Hi {{ user.username }}!</p>
+        <p>Привет {{ user.username }}!</p>
       {% else %}
-        <p>You are not logged in.</p>
+        <p>Вы не вошли в аккаунт</p>
         <a href="{% url 'login' %}">Log In</a>
       {% endif %}
 

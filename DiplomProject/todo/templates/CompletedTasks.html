@@ -2,13 +2,14 @@
 
 {% block content %}
   <div class="container mt-4">
-    <h1 class="mb-4">Завершенные задачи</h1>
+    <h2 class="text-center my-3 pb-3">Завершенные задачи</h2>
     <table class="table table-striped">
       <thead>
         <tr>
           <th scope="col">№</th>
           <th scope="col">Текст задачи</th>
           <th scope="col">Создана</th>
+          <th scope="col">Выполнена</th>
           <th scope="col">Дедлайн</th>
           <th scope="col">Выполнена на</th>
           <th scope="col">Действия</th>
@@ -20,10 +21,11 @@
             <th scope="row">{{ forloop.counter }}</th>
             <td>{{ task.task_text }}</td>
             <td>{{ task.created_at }}</td>
+            <td></td>
             <td>{{ task.deadline }}</td>
             <td>{{ task.quantitative_indicator }}</td>
             <td>
-              <a href="{% url 'task_details' task.id %}" class="btn btn-primary">Learn More</a>
+              <a href="{% url 'todo:learn-more' task.id %}" class="btn btn-primary">Узнать больше</a>
             </td>
           </tr>
         {% empty %}

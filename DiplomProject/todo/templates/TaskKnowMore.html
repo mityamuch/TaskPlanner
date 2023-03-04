@@ -10,15 +10,34 @@
     <div class="row">
       <div class="col-md-8">
         <p>{{ task.description }}</p>
-        <p><strong>Приоритет:</strong> {{ task.priority }}</p>
         <p><strong>Статус:</strong> {{ task.status }}</p>
+        <p><strong>Приоритет:</strong> {{ task.priority }}</p>
         <p><strong>Дедлайн:</strong> {{ task.deadline }}</p>
-        <p><strong>Предполагаемое время выполнения:</strong> {{ task.estimated_duration }}</p>
+        <p><strong>Заметки:</strong> {{ task.notes }}</p>
+
+        {% if is_completed %}
+              {% for taskexecution in task_executions %}
+                  <p><strong>Выполнена на:</strong> {{ taskexecution.quantitative_indicator }} %</p>
+                  <p><strong>Начата:</strong> {{ taskexecution.started_at }}</p>
+                  <p><strong>Завершена:</strong> {{ taskexecution.ended_at }}</p>
+                  <p><strong>Вовремя:</strong> {{ taskexecution.on_time }}</p>
+                  <p><strong>Комментарий:</strong> {{ taskexecution.comment }}</p>
+
+              {% endfor %}
+         {% else %}
+               <p><strong>Предполагаемое время выполнения:</strong> {{ task.estimated_duration }}</p>
+
+         {% endif %}
+
+        {% if task.file %}
+            <p>Файл: <a href="{% url 'todo:download-file' task_id=task.id %}">{{ task.file.name }}</a></p>
+        {% endif %}
+
       </div>
       <div class="col-md-4">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Выдана:</h5>
+            <h5 class="card-title">Кому выдана:</h5>
             {% if task.assigned_to_employee %}
               <p>{{ task.assigned_to_employee.user }}</p>
             {% elif task.assigned_to_team %}
@@ -26,6 +45,10 @@
             {% else %}
               <p>Никому не выдана</p>
             {% endif %}
+            <h5 class="card-title">Кем выдана:</h5>
+             <p>{{ task.created_by }}</p>
+            {% if is_completed %}
+            {% else %}
             <button type="button" class="btn btn-primary btn-block">
               <a href="{% url 'todo:accept' task_id=task.id %}" class="card-link">Завершить
               <style>
@@ -38,6 +61,7 @@
              </style>
               </a>
             </button>
+            {% endif %}
           </div>
         </div>
       </div>
