@@ -17,17 +17,19 @@
         {% for task in tasks %}
         <tr>
           <td>{{ task.task_text }}</td>
-          <td>{{ task.deadline }}</td>
+          <td>{{ task.deadline | date:"d.m.Y"}}</td>
           <td>{{ task.assigned_to_team.name }}</td>
           <td>{{ task.status }}</td>
           <td>
-             <button type="submit" class="btn btn-outline-info">
-                        <a href="{% url 'todo:learn-more' task_id=task.id %}" class="card-link">Узнать больше</a>
-             </button>
-            <button type="submit" class="btn btn-outline-primary ms-1" >
-                 <a href="{% url 'todo:accept' task_id=task.id  %}" class="card-link">Завершить</a>
-            </button>
-
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-outline-info">
+                    <a href="{% url 'todo:learn-more' task_id=task.id %}" class="card-link">Узнать больше</a>
+                </button>
+                    <h1></h1>
+                <button type="submit" class="btn btn-outline-primary ms-1" >
+                     <a href="{% url 'todo:accept' task_id=task.id  %}" class="card-link">Завершить</a>
+                </button>
+              </div>
           </td>
         </tr>
         {% empty %}

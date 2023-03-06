@@ -1,5 +1,7 @@
 {% extends 'base1.html' %}
 
+
+
 {% block title %}
 Задачи
 {% endblock %}
@@ -8,23 +10,12 @@
 {% endblock %}
 
 {% block content %}
-<!--<div class="col-md-9">-->
-<!--    {% for task in tasks %}-->
-<!--        <div class="card" style="width: 18rem;">-->
-<!--          <div class="card-body">-->
-<!--            <h5 class="card-title">{{ task.status }}</h5>-->
-<!--            <h6 class="card-subtitle mb-2 text-muted">{{ task.deadline | date:"Y-m-d H:i:s" }}</h6>-->
-<!--            <p class="card-text">{{ task.task_text | safe | linebreaks |truncatewords:50 }}</p>-->
-<!--            <a href="#" class="card-link">Узнать больше</a>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--    {% endfor %}-->
-<!--</div>-->
+
 
 <section class="vh-100" style="background-color: #eee;">
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
+    <div class="row" >
+      <div class="col-md-12" style="width: 85%; float:left">
         <div class="card rounded-3">
             <h2 class="text-center my-3 pb-3">Задачи</h2>
 
@@ -44,14 +35,17 @@
                     <th scope="row">{{ forloop.counter }}</th>
                     <td>{{ task.task_text | safe | linebreaks |truncatewords:50 }}</td>
                     <td>{{ task.status }}</td>
-                    <td>{{ task.deadline | date:"Y-m-d" }}</td>
+                    <td>{{ task.deadline | date:"d.m.Y" }}</td>
                     <td>
+                        <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-outline-info">
                         <a href="{% url 'todo:learn-more' task_id=task.id %}" class="card-link">Узнать больше</a>
                     </button>
+                        <h1></h1>
                     <button type="submit" class="btn btn-outline-primary ms-1" >
                          <a href="{% url 'todo:accept' task_id=task.id  %}" class="card-link">Завершить</a>
                     </button>
+                        </div>
                   </td>
                 </tr>
               {% empty %}
@@ -60,14 +54,29 @@
                 </tr>
               {% endfor %}
 
-
               </tbody>
             </table>
 
+
+
+
           </div>
         </div>
-      </div>
+
+       {% if can_create_tasks %}
+          <div class="col-md-12 text-right" style="width: 15%; float:right">
+                    <button type="submit" class="btn btn-outline-info">
+                        <a class="nav-link" href="{% url 'todo:issued-tasks' %}">Выданные задачи</a>
+                    </button>
+                    <h1></h1>
+                    <button type="submit" class="btn btn-outline-info" >
+                          <a class="nav-link" href="{% url 'todo:create' %}">Добавить задачу</a>
+                    </button>
+
+          </div>
+        {% endif %}
     </div>
+  </div>
 </section>
 
 

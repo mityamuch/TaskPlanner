@@ -24,6 +24,7 @@ class TaskForm(forms.ModelForm):
             'notes': 'Заметки',
             'estimated_duration': 'Предполагаемое время выполнения в сутках',
             'task_text': 'Задание',
+            'file': 'Файл',
         }
         help_texts = {
             'deadline': 'Введите дату в формате YYYY-MM-DD',

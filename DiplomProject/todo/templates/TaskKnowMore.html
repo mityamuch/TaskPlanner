@@ -30,9 +30,16 @@
          {% endif %}
 
         {% if task.file %}
-            <p>Файл: <a href="{% url 'todo:download-file' task_id=task.id %}">{{ task.file.name }}</a></p>
+            <p>Файл: <a href="{% url 'todo:download-file' task_id=task.id %}">{{ task.file }}</a></p>
         {% endif %}
-
+        <h4>История:</h4>
+            <ul>
+            {% for item in history %}
+                <li>{{ item.action }} - {{ item.timestamp }}</li>
+            {% empty %}
+                <li>Нет истории</li>
+            {% endfor %}
+            </ul>
       </div>
       <div class="col-md-4">
         <div class="card">
@@ -67,4 +74,5 @@
       </div>
     </div>
   </div>
+
 {% endblock %}

@@ -94,3 +94,14 @@ class TaskExecution(models.Model):
     class Meta:
         verbose_name = 'Результат выполнения'
         verbose_name_plural = '2. Результаты выполнения'
+
+
+class TaskHistory(models.Model):
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, verbose_name='Задача')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    action = models.CharField(max_length=255, verbose_name='Действие')
+    timestamp = models.DateTimeField(auto_now_add=True,verbose_name='Время')
+
+    class Meta:
+        verbose_name = 'История задачи'
+        verbose_name_plural = '7. Истории задач'
