@@ -48,6 +48,7 @@ class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     teams = models.ManyToManyField(Team, blank=True, verbose_name='Команда')
     role = models.ForeignKey(Role, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Роль')
+    telegram_chat_id = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return self.user.username
@@ -100,7 +101,7 @@ class TaskHistory(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE, verbose_name='Задача')
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
     action = models.CharField(max_length=255, verbose_name='Действие')
-    timestamp = models.DateTimeField(auto_now_add=True,verbose_name='Время')
+    timestamp = models.DateTimeField(auto_now_add=True, verbose_name='Время')
 
     class Meta:
         verbose_name = 'История задачи'

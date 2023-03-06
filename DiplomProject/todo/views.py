@@ -71,13 +71,10 @@ def team_tasks(request):
 
 
 def completed_by_team(request):
-    # Get the current user's employee object
     employee = request.user.employee
 
-    # Get the teams that the current user is a leader of
     team_leadership = Team.objects.filter(leader=employee)
 
-    # Get the completed tasks for each team that the current user is a leader of
     completed_by_team_tasks = []
     for team in team_leadership:
         tasks = Task.objects.filter(assigned_to_team=team,
@@ -85,11 +82,9 @@ def completed_by_team(request):
         completed_by_team_tasks.extend([task for task in tasks if
                                         task.executions.last().performed_by in team.employee_set.all() and task.executions.last().ended_at is not None])
 
-    # Get the completed tasks for the current user that are not assigned to a team they lead
     other_completed_tasks = Task.objects.filter(executions__performed_by=employee).exclude(
         assigned_to_team__leader=employee).distinct()
 
-    # Render the completed by team tasks template with the data
     return render(request, 'completed_by_team.html', {
         'completed_by_team_tasks': completed_by_team_tasks,
         'other_completed_tasks': other_completed_tasks,

@@ -16,4 +16,5 @@ urlpatterns = [
     path('home/', home, name='home'),
     path('redirect_to_tasks/', redirect_to_tasks, name='redirect_to_tasks'),
     path('redirect_to_login/', redirect_to_login, name='redirect_to_login'),
+    path('edit_profile/', profile_edit, name='profile_edit'),
 ]
