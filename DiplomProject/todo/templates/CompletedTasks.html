@@ -11,7 +11,7 @@
           <th scope="col">Создана</th>
           <th scope="col">Выполнена</th>
           <th scope="col">Дедлайн</th>
-          <th scope="col">Выполнена на</th>
+          <th scope="col"></th>
           <th scope="col">Действия</th>
         </tr>
       </thead>
@@ -25,7 +25,7 @@
             <td>{{ task.deadline }}</td>
             <td>{{ task.quantitative_indicator }}</td>
             <td>
-              <a href="{% url 'todo:learn-more' task.id %}" class="btn btn-primary">Узнать больше</a>
+              <a href="{% url 'todo:learn-more' task.id %}" class="btn btn-secondary">Узнать больше</a>
             </td>
           </tr>
         {% empty %}

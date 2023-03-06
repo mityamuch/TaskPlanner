@@ -1,0 +1,14 @@
+{% extends 'base1.html' %}
+
+{% block content %}
+  <h2>Настройки рассылки Телеграмм</h2>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+  </form>
+{% endblock %}
+
+
+
+

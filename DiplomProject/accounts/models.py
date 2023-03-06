@@ -23,3 +23,5 @@ class UserUpdateForm(UserChangeForm):
             'last_name': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
+
+

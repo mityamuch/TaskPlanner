@@ -1,5 +1,5 @@
 from django import forms
-from .models import Task
+from .models import Task, Employee
 
 
 class TaskForm(forms.ModelForm):
@@ -40,3 +40,14 @@ class TaskForm(forms.ModelForm):
                 'required': 'Выберите сотрудника',
             },
         }
+
+
+class TelegramSettingsForm(forms.ModelForm):
+    class Meta:
+        model = Employee
+        fields = ['telegram_chat_id']
+        labels = {
+            'telegram_chat_id': 'Индефикатор телеграмм чата',
+        }
+        widgets = {
+            'telegram_chat_id': forms.TextInput(attrs={'class': 'form-control'}), }

@@ -38,13 +38,9 @@
                     <td>{{ task.deadline | date:"d.m.Y" }}</td>
                     <td>
                         <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-outline-info">
-                        <a href="{% url 'todo:learn-more' task_id=task.id %}" class="card-link">Узнать больше</a>
-                    </button>
+                        <a href="{% url 'todo:learn-more' task_id=task.id %}" class="btn btn-secondary">Узнать больше</a>
                         <h1></h1>
-                    <button type="submit" class="btn btn-outline-primary ms-1" >
-                         <a href="{% url 'todo:accept' task_id=task.id  %}" class="card-link">Завершить</a>
-                    </button>
+                         <a href="{% url 'todo:accept' task_id=task.id  %}" class="btn btn-primary">Завершить</a>
                         </div>
                   </td>
                 </tr>
@@ -71,6 +67,10 @@
                     <h1></h1>
                     <button type="submit" class="btn btn-outline-info" >
                           <a class="nav-link" href="{% url 'todo:create' %}">Добавить задачу</a>
+                    </button>
+                    <h1></h1>
+                    <button type="submit" class="btn btn-outline-info" >
+                          <a class="nav-link" href="{% url 'todo:telegram-settings' %}">Настройки рассылки</a>
                     </button>
 
           </div>

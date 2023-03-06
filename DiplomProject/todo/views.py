@@ -6,11 +6,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.urls import reverse
 from django.utils import timezone
-from django.utils.encoding import smart_str
 
-from .models import TaskExecution, Permissions, TaskHistory
-from .forms import TaskForm
-from .models import Task, Team, Employee
+from .models import TaskExecution, Permissions, TaskHistory, Task, Team, Employee
+from .forms import TaskForm, TelegramSettingsForm
+from .telegram_bot import send_task_notification
 
 
 # Create your views here.
@@ -132,7 +131,7 @@ def download_file(request, task_id):
 
 
 def issued_tasks(request):
-    tasks = Task.objects.filter(created_by=request.user.id)
+    tasks = Task.objects.filter(created_by=request.user.id).order_by('-created_at')
     current_user_id = request.user.id
     employee = Employee.objects.filter(user_id=current_user_id).first()
 
@@ -157,6 +156,9 @@ def create_task(request):
             task.save()
             form.save_m2m()
             TaskHistory.objects.create(task=task, action='Создана', timestamp=timezone.now(), user=request.user)
+            employee = task.assigned_to_employee
+            if employee is not None:
+                send_task_notification(task.id, employee.id, 'started')
             return redirect('todo:home')
     else:
         form = TaskForm(initial={'created_by': request.user.id})
@@ -197,22 +199,45 @@ def accept_task(request, task_id):
 
 def return_task(request, task_id):
     task = Task.objects.get(id=task_id)
+    employee = task.assigned_to_employee
     task_execution = get_object_or_404(TaskExecution, task_id=task_id)
     task_execution.delete()
     task.status = "Выдана"
     task.save()
     TaskHistory.objects.create(task=task, action='Возвращена', timestamp=timezone.now(), user=request.user)
+    if employee is not None:
+        send_task_notification(task.id, employee.id, 'returned')
     return redirect('todo:issued-tasks')
 
 
 def edit_task(request, task_id):
     task = get_object_or_404(Task, pk=task_id)
+    employee = task.assigned_to_employee
     if request.method == 'POST':
         form = TaskForm(request.POST, instance=task)
         if form.is_valid():
+            if employee is not None:
+                send_task_notification(task.id, employee.id, 'edit')
             form.save()
             TaskHistory.objects.create(task=task, action='Отредактирована', timestamp=timezone.now(), user=request.user)
             return redirect('todo:issued-tasks')
     else:
         form = TaskForm(instance=task)
     return render(request, 'edit_task.html', {'form': form, 'task': task})
+
+
+def telegram_settings(request):
+    current_user_id = request.user.id
+    employee = Employee.objects.filter(user_id=current_user_id).first()
+    if request.method == 'POST':
+        form = TelegramSettingsForm(request.POST, instance=employee)
+        if form.is_valid():
+            form.save()
+            return redirect('todo:home')
+    else:
+        form = TelegramSettingsForm(instance=employee)
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'telegram_settings.html', context)
