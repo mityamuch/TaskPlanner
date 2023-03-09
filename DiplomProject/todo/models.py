@@ -51,7 +51,11 @@ class Employee(models.Model):
     telegram_chat_id = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
-        return self.user.username
+        if self.user.first_name is not None and self.user.last_name is not None:
+            return self.user.first_name + ' ' + self.user.last_name
+        else:
+            return self.user.username
+
 
     class Meta:
         verbose_name = 'Сотрудник'

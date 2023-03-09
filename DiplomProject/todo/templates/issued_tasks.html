@@ -28,20 +28,27 @@
           <td>{{ task.deadline }}</td>
           <td>{{ task.status }}</td>
            <td>
-             <div class="d-grid gap-3">
-            {% if task.created_by == request.user %}
-                <a href="{% url 'todo:learn-more' task.id %}" class="btn btn-secondary">Узнать Больше</a>
-              {% if can_update_tasks %}
-                <h1></h1>
-                <a href="{% url 'todo:edit-task' task.id %}" class="btn btn-primary">Редактировать</a>
+             <div class="d-grid gap-4">
+              {% if task.created_by == request.user %}
+                    <a href="{% url 'todo:learn-more' task.id %}" class="btn btn-secondary">Узнать Больше</a>
+                  {% if can_update_tasks %}
+                    <a href="{% url 'todo:edit-task' task.id %}" class="btn btn-primary">Редактировать</a>
+                  {% endif %}
+
+                   {% if task.status == "Завершена" %}
+                    <a href="{% url 'todo:return-task' task.id %}" class="btn btn-warning">Вернуть</a>
+                   {% endif %}
+
+                    <button onclick="confirmDelete({{ task.id }})" class="btn btn-danger" >Удалить</button>
+                    <script>
+                    function confirmDelete(taskId) {
+                      if (confirm('Вы уверены что хотите удалить задачу')) {
+                        // if user clicks 'OK', redirect to delete task view
+                        window.location.href = `/tasks/delete_task/${taskId}/`;
+                      }
+                    }
+                    </script>
               {% endif %}
-
-               {% if task.status == "Завершена" %}
-                <h1></h1>
-                <a href="{% url 'todo:return-task' task.id %}" class="btn btn-danger">Вернуть</a>
-               {% endif %}
-
-            {% endif %}
              </div>
            </td>
         </tr>
@@ -53,3 +60,4 @@
     </tbody>
   </table>
 {% endblock %}
+

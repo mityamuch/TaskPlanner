@@ -173,12 +173,15 @@ def accept_task(request, task_id):
     #     return HttpResponseRedirect(reverse('tasklist'))
     if request.method == 'POST':
         # Create a new task execution instance
+        quantitative_indicator = request.POST.get('quantitative_indicator')
+        if quantitative_indicator == '':
+            quantitative_indicator = 0
         execution = TaskExecution(
             task=task,
             started_at=task.created_at,
             ended_at=timezone.now(),
             performed_by=request.user.employee,
-            quantitative_indicator=request.POST.get('quantitative_indicator'),
+            quantitative_indicator=quantitative_indicator,
             comments=request.POST.get('comments'),
 
         )
@@ -224,6 +227,12 @@ def edit_task(request, task_id):
     else:
         form = TaskForm(instance=task)
     return render(request, 'edit_task.html', {'form': form, 'task': task})
+
+
+def delete_task(request, task_id):
+    task = get_object_or_404(Task, pk=task_id)
+    task.delete()
+    return redirect('todo:issued-tasks')
 
 
 def telegram_settings(request):

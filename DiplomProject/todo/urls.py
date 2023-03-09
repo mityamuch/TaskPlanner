@@ -16,4 +16,5 @@ urlpatterns = [
     path('return_task/<int:task_id>/', return_task, name='return-task'),
     path('edit/<int:task_id>/', edit_task, name='edit-task'),
     path('telegram-settings/', telegram_settings, name='telegram-settings'),
+    path('delete_task/<int:task_id>/', delete_task, name='delete_task'),
 ]

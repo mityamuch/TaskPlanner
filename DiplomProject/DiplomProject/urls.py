@@ -22,4 +22,5 @@ urlpatterns = [
     path('', RedirectView.as_view(url='accounts/login/', permanent=False), name='index'),
     path('accounts/', include('accounts.urls')),
     path('tasks/', include('todo.urls', namespace='todo')),
+
 ]

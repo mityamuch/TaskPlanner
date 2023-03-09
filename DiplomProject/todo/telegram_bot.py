@@ -3,6 +3,7 @@ import telegram
 from .models import Task, Employee
 from django.conf import settings
 
+
 def send_task_notification(task_id, employee_id, message_type):
     task = Task.objects.get(id=task_id)
     employee = Employee.objects.get(id=employee_id)
